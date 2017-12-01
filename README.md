@@ -5,12 +5,12 @@ A simple universal client for GraphQL apps using fusion-apollo.
 ## Usage
 
 ```js
-import apolloClientFactory from 'fusion-apollo-universal-client';
+import createApolloClient from 'fusion-apollo-universal-client';
 export default () => {
   const clientConfig = {
     endpoint: 'http://...'
   };
-  const app = new App(root, apolloClientFactory(clientConfig));
+  const app = new App(root, createApolloClient(clientConfig));
   return app;
 }
 
