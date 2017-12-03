@@ -8,7 +8,9 @@ A simple universal client for GraphQL apps using fusion-apollo.
 import createApolloClient from 'fusion-apollo-universal-client';
 export default () => {
   const clientConfig = {
-    endpoint: 'http://...'
+    endpoint: 'http://...',
+    // You can provide your own fetch implementation
+    fetch: global.fetch || window.fetch,
   };
   const app = new App(root, createApolloClient(clientConfig));
   return app;

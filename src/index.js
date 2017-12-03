@@ -7,7 +7,10 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import * as Cookies from 'js-cookie';
 
-const getClient = ({endpoint, authKey = 'token'}) => (ctx, initialState) => {
+const getClient = ({endpoint, fetch, authKey = 'token'}) => (
+  ctx,
+  initialState
+) => {
   const getBrowserProps = () => {
     return Cookies.get(authKey);
   };
@@ -18,7 +21,7 @@ const getClient = ({endpoint, authKey = 'token'}) => (ctx, initialState) => {
 
   const httpLink = new HttpLink({
     uri: endpoint,
-    fetch: __NODE__ ? global.fetch : window.fetch,
+    fetch,
   });
 
   const token = __BROWSER__ ? getBrowserProps() : getServerProps();
