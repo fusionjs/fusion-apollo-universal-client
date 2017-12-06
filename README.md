@@ -1,5 +1,7 @@
 # fusion-apollo-universal-client
 
+[![Build status](https://badge.buildkite.com/107d4baa53a894926a5da4e9552291e6e1b8133d6f665729cc.svg?branch=master)](https://buildkite.com/uberopensource/fusion-apollo-universal-client)
+
 A simple universal client for GraphQL apps using fusion-apollo.
 
 ## Usage

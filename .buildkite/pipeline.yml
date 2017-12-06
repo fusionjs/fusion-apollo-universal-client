@@ -1,0 +1,22 @@
+steps:
+  - name: ':docker: build'
+    plugins:
+      'docker-compose#v1.7.0':
+        build: fusion-apollo-universal-client
+        image-repository: 296822479253.dkr.ecr.us-east-2.amazonaws.com/fusionjs
+  - wait
+  - name: ":flowtype:"
+    command: "yarn flow"
+    plugins:
+      docker-compose#v1.5.2:
+        run: fusion-apollo-universal-client
+  - name: ':eslint:'
+    command: yarn lint
+    plugins:
+      'docker-compose#v1.7.0':
+        run: fusion-apollo-universal-client
+  - name: ':node:'
+    command: yarn transpile
+    plugins:
+      'docker-compose#v1.7.0':
+        run: fusion-apollo-universal-client

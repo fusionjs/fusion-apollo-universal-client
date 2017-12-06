@@ -1,0 +1,7 @@
+version: '2'
+services:
+  fusion-apollo-universal-client:
+    build: .
+    volumes:
+      - .:/fusion-apollo-universal-client
+      - /fusion-apollo-universal-client/node_modules/
