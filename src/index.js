@@ -1,8 +1,8 @@
-import 'isomorphic-fetch';
-
-import ApolloClient from 'apollo-client';
+import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, concat} from 'apollo-link';
+// Fixed By: https://github.com/benmosher/eslint-plugin-import/issues/975#issuecomment-348807796
+// eslint-disable-next-line
 import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import * as Cookies from 'js-cookie';
