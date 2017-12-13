@@ -1,4 +1,6 @@
-import {ApolloClient} from 'apollo-client';
+// @flow
+
+import { ApolloClient } from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, concat} from 'apollo-link';
 // Fixed By: https://github.com/benmosher/eslint-plugin-import/issues/975#issuecomment-348807796
@@ -7,9 +9,15 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import * as Cookies from 'js-cookie';
 
-const getClient = ({endpoint, fetch, authKey = 'token'}) => (
+type Options = {
+  endpoint: string,
+  fetch: ({}) => Promise<any>,
+  authKey: string,
+};
+
+const getClient = ({endpoint, fetch, authKey = 'token'}: Options) => (
   ctx,
-  initialState
+  initialState: {}
 ) => {
   const getBrowserProps = () => {
     return Cookies.get(authKey);
