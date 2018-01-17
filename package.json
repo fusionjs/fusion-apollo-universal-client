@@ -21,7 +21,7 @@
   "devDependencies": {
     "babel-eslint": "8.2.1",
     "babel-preset-react": "6.24.1",
-    "create-universal-package": "1.0.0-rc.18",
+    "create-universal-package": "3.2.5",
     "eslint": "4.15.0",
     "eslint-config-fusion": "0.2.1",
     "eslint-plugin-cup": "1.0.0",
