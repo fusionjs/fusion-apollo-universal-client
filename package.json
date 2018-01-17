@@ -1,12 +1,13 @@
 {
   "name": "fusion-apollo-universal-client",
   "version": "0.0.4",
-  "main": "./dist/node.cjs.js",
+  "main": "./dist/index.js",
   "license": "MIT",
   "repository": "fusionjs/fusion-apollo-universal-client",
-  "module": "./dist/node.es.js",
+  "module": "./dist/index.es.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "browser": {
     "./dist/node.cjs.js": "./dist/browser.cjs.js",
@@ -21,7 +22,7 @@
   "devDependencies": {
     "babel-eslint": "8.2.1",
     "babel-preset-react": "6.24.1",
-    "create-universal-package": "1.0.0-rc.18",
+    "create-universal-package": "^3.2.4",
     "eslint": "4.15.0",
     "eslint-config-fusion": "0.2.1",
     "eslint-plugin-cup": "1.0.0",
