@@ -663,8 +663,8 @@
   resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.46.tgz#f13a6c336a6582b95d0c0269e796b709488fd54d"
 
 "@types/core-js@^0.9.41":
-  version "0.9.44"
-  resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-0.9.44.tgz#0d3b179ffa612898beed19fe8cc863822da507e5"
+  version "0.9.45"
+  resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-0.9.45.tgz#98bd4e49bd5c5e8da5d85dfaa589dfc269b7b067"
 
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
@@ -1529,9 +1529,9 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-universal-package@3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/create-universal-package/-/create-universal-package-3.2.5.tgz#6b4e9106000e2ebf372e6f09badf4ccf74b9d94a"
+create-universal-package@3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/create-universal-package/-/create-universal-package-3.2.6.tgz#8269a7ac8ad5d1e13139a36f18d139fb48000483"
   dependencies:
     "@babel/core" "^7.0.0-beta.36"
     "@babel/plugin-transform-flow-strip-types" "^7.0.0-beta.36"
