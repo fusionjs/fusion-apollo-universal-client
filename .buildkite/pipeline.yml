@@ -22,7 +22,7 @@ steps:
     agents:
       queue: workers
   - name: ':node:'
-    command: yarn transpile
+    command: yarn test
     plugins:
       'docker-compose#v1.7.0':
         run: fusion-apollo-universal-client
