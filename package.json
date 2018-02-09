@@ -31,7 +31,7 @@
     "flow-bin": "0.65.0",
     "fusion-core": "0.3.6",
     "fusion-react-async": "0.2.0",
-    "fusion-tokens": "^0.0.6",
+    "fusion-tokens": "^1.0.0",
     "prettier": "1.10.2",
     "react": "16.2.0",
     "react-dom": "16.2.0",
