@@ -66,10 +66,6 @@ A token with the GraphQL endpoint which the Apollo HttpLink client communicates 
 
 ###### Type
 
-```js
-type ApolloClientAuthKeyToken = string;
-```
-
 * `string` - Required. The URI to make GraphQL requests from.
 
 #### Dependencies
@@ -105,10 +101,6 @@ import {ApolloClientAuthKeyToken} from 'fusion-tokens';
 (Optional) A configuration value that provides the value of an authentication token to use from the document cookies. If provided, this token is used in the Apollo auth middleware as an authorization header.
 
 ###### Type
-
-```js
-type ApolloClientAuthKeyToken = string;
-```
 
 * `string` - Required. Name of the cookie which contains the authorization token.
 
