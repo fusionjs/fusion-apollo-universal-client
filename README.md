@@ -38,10 +38,13 @@ yarn add fusion-apollo-universal-client
 ```js
 import App, {ApolloClientToken} from 'fusion-apollo';
 import GetApolloClient from 'fusion-apollo-universal-client';
+import unfetch from 'unfetch';
+
 export default () => {
   const app = new App(root);
   app.register(ApolloClientToken, GetApolloClient);
   app.register(ApolloClientEndpointToken, '...');
+  __NODE__ && app.register(FetchToken, unfetch);
   return app;
 };
 ```
