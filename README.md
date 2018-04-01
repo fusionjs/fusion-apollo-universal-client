@@ -120,7 +120,7 @@ If no token name is provided, authorization headers are not sent.
 
 When registering CSRFProtection to the FetchToken, it may be necessary to provide a non-CSRF protected implementation of the FetchToken to the client. You can use token aliasing to register a different service for the FetchToken for fusion-apollo-universal-client.
 
-```
+```js
 import {createToken} from 'fusion-core';
 const FetchTokenPolyfill = createToken('FetchTokenPolyfill');
 
