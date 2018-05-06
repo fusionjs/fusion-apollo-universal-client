@@ -2,9 +2,10 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
  */
 
-// @flow
 import {createPlugin, createToken} from 'fusion-core';
 import {FetchToken} from 'fusion-tokens';
 
@@ -12,13 +13,15 @@ import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, concat} from 'apollo-link';
 
+import type {Token} from 'fusion-core';
+
 // Fixed By: https://github.com/benmosher/eslint-plugin-import/issues/975#issuecomment-348807796
 // eslint-disable-next-line
 import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import * as Cookies from 'js-cookie';
 
-export const ApolloClientEndpointToken = createToken(
+export const ApolloClientEndpointToken: Token<string> = createToken(
   'ApolloClientEndpointToken'
 );
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
