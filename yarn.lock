@@ -932,6 +932,12 @@ apollo-link-http@^1.5.4:
     apollo-link "^1.2.2"
     apollo-link-http-common "^0.2.4"
 
+apollo-link-schema@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/apollo-link-schema/-/apollo-link-schema-1.1.0.tgz#033fda26ffdbfc809d04892de554867f50e2af8e"
+  dependencies:
+    apollo-link "^1.2.2"
+
 apollo-link@^1.0.0, apollo-link@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.1.0.tgz#9d573b16387ee0d8e147b1f319e42c8c562f18f7"
@@ -2587,9 +2593,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-apollo@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/fusion-apollo/-/fusion-apollo-1.0.4.tgz#50fb665853a42e4d72922940c2948dba14f87ec7"
+fusion-apollo@^1.1.0-0:
+  version "1.1.0-0"
+  resolved "https://registry.yarnpkg.com/fusion-apollo/-/fusion-apollo-1.1.0-0.tgz#80695965948928139d17c9a6663d6cee21eee4c4"
   dependencies:
     fusion-react "^1.0.4"
 
@@ -2624,8 +2630,8 @@ fusion-react-async@1.2.2:
     react-is "^16.3.1"
 
 fusion-react@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/fusion-react/-/fusion-react-1.0.4.tgz#5ad3493c575aca4b8724a06639d2ff75387f8c3e"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/fusion-react/-/fusion-react-1.0.5.tgz#478e5db3d49379d10ec9a072822a0e7b6092e036"
 
 fusion-tokens@^1.0.3:
   version "1.0.3"
