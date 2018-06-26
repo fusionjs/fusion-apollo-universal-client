@@ -8,10 +8,11 @@
 
 import {createPlugin, createToken} from 'fusion-core';
 import {FetchToken} from 'fusion-tokens';
-
+import {GraphQLSchemaToken} from 'fusion-apollo';
 import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, concat} from 'apollo-link';
+import {SchemaLink} from 'apollo-link-schema';
 
 import type {Token} from 'fusion-core';
 
@@ -31,8 +32,9 @@ const ApolloClientPlugin = createPlugin({
     endpoint: ApolloClientEndpointToken,
     fetch: FetchToken,
     authKey: ApolloClientAuthKeyToken.optional,
+    schema: GraphQLSchemaToken.optional,
   },
-  provides({endpoint, fetch, authKey = 'token'}) {
+  provides({endpoint, fetch, authKey = 'token', schema}) {
     return (ctx, initialState) => {
       const getBrowserProps = () => {
         return Cookies.get(authKey);
@@ -42,10 +44,13 @@ const ApolloClientPlugin = createPlugin({
         return ctx && ctx.cookies.get(authKey);
       };
 
-      const httpLink = new HttpLink({
-        uri: endpoint,
-        fetch,
-      });
+      const connectionLink =
+        schema && __NODE__
+          ? new SchemaLink({schema})
+          : new HttpLink({
+              uri: endpoint,
+              fetch,
+            });
 
       const token = __BROWSER__ ? getBrowserProps() : getServerProps();
       const authMiddleware = new ApolloLink((operation, forward) => {
@@ -61,7 +66,8 @@ const ApolloClientPlugin = createPlugin({
       });
 
       const client = new ApolloClient({
-        link: concat(authMiddleware, httpLink),
+        ssrMode: true,
+        link: concat(authMiddleware, connectionLink),
         cache: new InMemoryCache().restore(initialState),
       });
       return client;

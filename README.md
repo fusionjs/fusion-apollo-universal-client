@@ -38,7 +38,7 @@ yarn add fusion-apollo-universal-client
 
 ```js
 import App, {ApolloClientToken} from 'fusion-apollo';
-import GetApolloClient from 'fusion-apollo-universal-client';
+import GetApolloClient, {ApolloClientEndpointToken} from 'fusion-apollo-universal-client';
 import unfetch from 'unfetch';
 
 export default () => {
@@ -49,6 +49,30 @@ export default () => {
   return app;
 };
 ```
+
+
+### Usage with local server
+If your app hosts the Apollo server a schema must be provided. 
+The schema can be provided using the `GraphQLSchemaToken` from `fusion-apollo`. 
+
+```js
+import App, {ApolloClientToken, GraphQLSchemaToken} from 'fusion-apollo';
+import {makeExecutableSchema} from 'graphql-tools';
+import GetApolloClient, {ApolloClientEndpointToken} from 'fusion-apollo-universal-client';
+import unfetch from 'unfetch';
+
+export default () => {
+  const app = new App(root);
+  app.register(ApolloClientToken, GetApolloClient);
+  app.register(ApolloClientEndpointToken, '...');
+  app.register(GraphQLSchemaToken, makeExecutableSchema(...));
+  __NODE__ && app.register(FetchToken, unfetch);
+  return app;
+};
+```
+
+See the [Apollo Documentation](https://www.apollographql.com/docs/graphql-tools/generate-schema.html) for how to generate a schema. 
+
 
 ### Authorization
 
