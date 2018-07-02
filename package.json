@@ -18,7 +18,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.3",
+    "babel-eslint": "8.2.5",
     "babel-preset-react": "6.24.1",
     "create-universal-package": "3.4.4",
     "eslint": "4.19.1",
