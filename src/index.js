@@ -33,7 +33,7 @@ const ApolloClientPlugin = createPlugin({
     fetch: FetchToken,
     authKey: ApolloClientAuthKeyToken.optional,
     schema: GraphQLSchemaToken.optional,
-    context: ApolloContextToken.optional,
+    apolloContext: ApolloContextToken.optional,
   },
   provides({endpoint, fetch, authKey = 'token', context, schema}) {
     return (ctx, initialState) => {
@@ -49,7 +49,7 @@ const ApolloClientPlugin = createPlugin({
         schema && __NODE__
           ? new SchemaLink({
             schema,
-            apolloContext: typeof context === 'function' ? context(ctx) : context,
+            context: typeof apolloContext === 'function' ? apolloContext(ctx) : apolloContext,
           })
           : new HttpLink({
               uri: endpoint,
