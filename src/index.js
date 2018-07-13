@@ -48,9 +48,12 @@ const ApolloClientPlugin = createPlugin({
       const connectionLink =
         schema && __NODE__
           ? new SchemaLink({
-            schema,
-            context: typeof apolloContext === 'function' ? apolloContext(ctx) : apolloContext,
-          })
+              schema,
+              context:
+                typeof apolloContext === 'function'
+                  ? apolloContext(ctx)
+                  : apolloContext,
+            })
           : new HttpLink({
               uri: endpoint,
               fetch,
