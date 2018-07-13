@@ -49,7 +49,7 @@ const ApolloClientPlugin = createPlugin({
         schema && __NODE__
           ? new SchemaLink({
             schema,
-            context: typeof context === 'function' ? context(ctx) : context,
+            apolloContext: typeof context === 'function' ? context(ctx) : context,
           })
           : new HttpLink({
               uri: endpoint,
