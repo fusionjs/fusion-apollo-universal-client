@@ -8,7 +8,7 @@
 
 import {createPlugin, createToken} from 'fusion-core';
 import {FetchToken} from 'fusion-tokens';
-import {GraphQLSchemaToken} from 'fusion-apollo';
+import {GraphQLSchemaToken, ApolloContextToken} from 'fusion-apollo';
 import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, concat} from 'apollo-link';
@@ -33,8 +33,9 @@ const ApolloClientPlugin = createPlugin({
     fetch: FetchToken,
     authKey: ApolloClientAuthKeyToken.optional,
     schema: GraphQLSchemaToken.optional,
+    context: ApolloContextToken.optional,
   },
-  provides({endpoint, fetch, authKey = 'token', schema}) {
+  provides({endpoint, fetch, authKey = 'token', context, schema}) {
     return (ctx, initialState) => {
       const getBrowserProps = () => {
         return Cookies.get(authKey);
@@ -46,7 +47,10 @@ const ApolloClientPlugin = createPlugin({
 
       const connectionLink =
         schema && __NODE__
-          ? new SchemaLink({schema})
+          ? new SchemaLink({
+            schema,
+            context: typeof context === 'function' ? context(ctx) : context,
+          })
           : new HttpLink({
               uri: endpoint,
               fetch,
