@@ -35,7 +35,7 @@ const ApolloClientPlugin = createPlugin({
     schema: GraphQLSchemaToken.optional,
     apolloContext: ApolloContextToken.optional,
   },
-  provides({endpoint, fetch, authKey = 'token', context, schema}) {
+  provides({endpoint, fetch, authKey = 'token', apolloContext, schema}) {
     return (ctx, initialState) => {
       const getBrowserProps = () => {
         return Cookies.get(authKey);
