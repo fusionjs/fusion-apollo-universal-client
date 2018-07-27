@@ -155,19 +155,3 @@ import {ApolloClientCredentialsToken} from 'fusion-tokens';
 The default value is `same-origin`.
 
 ---
-
-### Examples
-
-#### Using fusion-apollo-universal-client with fusion-plugin-csrf-protection
-
-When registering CSRFProtection to the FetchToken, it may be necessary to provide a non-CSRF protected implementation of the FetchToken to the client. You can use token aliasing to register a different service for the FetchToken for fusion-apollo-universal-client.
-
-```js
-import {createToken} from 'fusion-core';
-const FetchTokenPolyfill = createToken('FetchTokenPolyfill');
-
-app.register(FetchTokenPolyfill, require('node-fetch'));
-app
-  .register(ApolloClientToken, ApolloClient)
-  .alias(FetchToken, FetchTokenPolyfill);
-```
