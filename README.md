@@ -10,17 +10,18 @@ The Apollo Client is the entrypoint for most Apollo applications. This plugin pr
 
 # Table of contents
 
-* [Installation](#installation)
-* [Usage](#usage)
-  * [Usage with fusion-apollo](#usage-with-fusion-apollo)
-  * [Authorization](#authorization)
-* [API](#api)
-  * [Registration API](#registration-api)
-    * [`ApolloClientEndpointToken`](#apolloclientendpointtoken)
-  * [Dependencies](#dependencies)
-    * [`FetchToken`](#fetchtoken)
-    * [`ApolloClientAuthKeyToken`](#apolloclientauthkeytoken)
-* [Examples](#examples)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Usage with fusion-apollo](#usage-with-fusion-apollo)
+  - [Authorization](#authorization)
+- [API](#api)
+  - [Registration API](#registration-api)
+    - [`ApolloClientEndpointToken`](#apolloclientendpointtoken)
+  - [Dependencies](#dependencies)
+    - [`FetchToken`](#fetchtoken)
+    - [`ApolloClientAuthKeyToken`](#apolloclientauthkeytoken)
+    - [`ApolloClientCredentialsToken`](#apolloclientcredentialstoken)
+- [Examples](#examples)
 
 ---
 
@@ -38,7 +39,9 @@ yarn add fusion-apollo-universal-client
 
 ```js
 import App, {ApolloClientToken} from 'fusion-apollo';
-import GetApolloClient, {ApolloClientEndpointToken} from 'fusion-apollo-universal-client';
+import GetApolloClient, {
+  ApolloClientEndpointToken,
+} from 'fusion-apollo-universal-client';
 import unfetch from 'unfetch';
 
 export default () => {
@@ -50,10 +53,10 @@ export default () => {
 };
 ```
 
-
 ### Usage with local server
-If your app hosts the Apollo server a schema must be provided. 
-The schema can be provided using the `GraphQLSchemaToken` from `fusion-apollo`. 
+
+If your app hosts the Apollo server a schema must be provided.
+The schema can be provided using the `GraphQLSchemaToken` from `fusion-apollo`.
 
 ```js
 import App, {ApolloClientToken, GraphQLSchemaToken} from 'fusion-apollo';
@@ -71,8 +74,7 @@ export default () => {
 };
 ```
 
-See the [Apollo Documentation](https://www.apollographql.com/docs/graphql-tools/generate-schema.html) for how to generate a schema. 
-
+See the [Apollo Documentation](https://www.apollographql.com/docs/graphql-tools/generate-schema.html) for how to generate a schema.
 
 ### Authorization
 
@@ -94,7 +96,7 @@ A token with the GraphQL endpoint which the Apollo HttpLink client communicates 
 
 ###### Type
 
-* `string` - Required. The URI to make GraphQL requests from.
+- `string` - Required. The URI to make GraphQL requests from.
 
 #### Dependencies
 
@@ -112,9 +114,9 @@ A [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) implemen
 type Fetch = (url: string, options: Object) => Promise<Response>;
 ```
 
-* `url: string` - Required. Path or URL to the resource you wish to fetch.
-* `options: Object` - Optional. You may optionally pass an `init` options object as the second argument. See [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) for more details.
-* `[return]: Promise<Request>` - Return value from fetch. See [Response](A function that loads appropriate translations and locale information given an HTTP request context) for more details.
+- `url: string` - Required. Path or URL to the resource you wish to fetch.
+- `options: Object` - Optional. You may optionally pass an `init` options object as the second argument. See [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) for more details.
+- `[return]: Promise<Request>` - Return value from fetch. See [Response](A function that loads appropriate translations and locale information given an HTTP request context) for more details.
 
 ###### Default value
 
@@ -130,11 +132,27 @@ import {ApolloClientAuthKeyToken} from 'fusion-tokens';
 
 ###### Type
 
-* `string` - Required. Name of the cookie which contains the authorization token.
+- `string` - Required. Name of the cookie which contains the authorization token.
 
 ###### Default value
 
 If no token name is provided, authorization headers are not sent.
+
+##### `ApolloClientCredentialsToken`
+
+```js
+import {ApolloClientCredentialsToken} from 'fusion-tokens';
+```
+
+(Optional) A configuration value that provides the value of credentials value passed directly into the [fetch implementation](https://github.com/github/fetch).
+
+###### Type
+
+- `string` - Optional.
+
+###### Default value
+
+The default value is `same-origin`.
 
 ---
 

@@ -25,17 +25,28 @@ import * as Cookies from 'js-cookie';
 export const ApolloClientEndpointToken: Token<string> = createToken(
   'ApolloClientEndpointToken'
 );
+export const ApolloClientCredentialsToken: Token<string> = createToken(
+  'ApolloClientCredentialsToken'
+);
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
 const ApolloClientPlugin = createPlugin({
   deps: {
     endpoint: ApolloClientEndpointToken,
     fetch: FetchToken,
+    includeCredentials: ApolloClientCredentialsToken.optional,
     authKey: ApolloClientAuthKeyToken.optional,
     schema: GraphQLSchemaToken.optional,
     apolloContext: ApolloContextToken.optional,
   },
-  provides({endpoint, fetch, authKey = 'token', apolloContext, schema}) {
+  provides({
+    endpoint,
+    fetch,
+    authKey = 'token',
+    includeCredentials = 'same-origin',
+    apolloContext,
+    schema,
+  }) {
     return (ctx, initialState) => {
       const getBrowserProps = () => {
         return Cookies.get(authKey);
@@ -56,6 +67,7 @@ const ApolloClientPlugin = createPlugin({
             })
           : new HttpLink({
               uri: endpoint,
+              credentials: includeCredentials,
               fetch,
             });
 
