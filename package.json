@@ -37,7 +37,7 @@
     "fusion-core": "1.4.1",
     "fusion-react-async": "1.2.3",
     "fusion-tokens": "^1.0.4",
-    "prettier": "1.13.7",
+    "prettier": "1.14.0",
     "react": "16.4.1",
     "react-apollo": "^2.1.9",
     "react-dom": "16.4.1",
