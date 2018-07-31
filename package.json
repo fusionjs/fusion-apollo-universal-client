@@ -35,7 +35,6 @@
     "flow-bin": "0.77.0",
     "fusion-apollo": "^1.2.0",
     "fusion-core": "1.4.1",
-    "fusion-react-async": "1.2.3",
     "fusion-tokens": "^1.0.4",
     "prettier": "1.13.7",
     "react": "16.4.1",
@@ -55,7 +54,6 @@
   },
   "peerDependencies": {
     "fusion-core": "^1.0.0",
-    "fusion-react-async": "^1.0.0",
     "react": "16.x",
     "react-dom": "16.x"
   },
