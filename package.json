@@ -37,9 +37,9 @@
     "fusion-core": "1.4.1",
     "fusion-tokens": "^1.0.4",
     "prettier": "1.14.0",
-    "react": "16.4.1",
+    "react": "16.4.2",
     "react-apollo": "^2.1.9",
-    "react-dom": "16.4.1",
+    "react-dom": "16.4.2",
     "tape-cup": "4.7.1",
     "unitest": "2.1.1"
   },
