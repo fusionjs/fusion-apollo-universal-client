@@ -90,10 +90,13 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-      console.log('got linkEnhancer?!', linkEnhancer);
+      const links = [authMiddleware, connectionLink];
+      if (linkEnhancer) {
+        links.unshift(linkEnhancer);
+      }
       const client = new ApolloClient({
         ssrMode: true,
-        link: apolloLinkFrom(linkEnhancer, authMiddleware, connectionLink),
+        link: apolloLinkFrom(links),
         cache: new InMemoryCache().restore(initialState),
       });
       return client;

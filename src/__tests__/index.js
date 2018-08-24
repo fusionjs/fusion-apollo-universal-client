@@ -8,26 +8,25 @@
 
 import tape from 'tape-cup';
 
-import App, {consumeSanitizedHTML, createPlugin} from 'fusion-core';
-import type {FusionPlugin} from 'fusion-core';
-import {getSimulator, getService} from 'fusion-test-utils';
+import App, {createPlugin} from 'fusion-core';
+import {getSimulator} from 'fusion-test-utils';
 import {ApolloClientToken} from 'fusion-apollo';
+import {ApolloLink} from 'apollo-link';
 import {FetchToken} from 'fusion-tokens';
-import {SchemaLink} from 'apollo-link-schema';
+import unfetch from 'unfetch';
 
 import ApolloClientPlugin, {
   ApolloClientEndpointToken,
   ApolloClientLinkEnhancerToken,
 } from '../index.js';
 
-tape.only('link enhancers - via app.register', async t => {
+tape('link enhancers - via app.register', async t => {
   /* Enhancer function */
   const app = new App('el', el => el);
-  const mockLink = new SchemaLink({schema: ''});
-  app.register(ApolloClientLinkEnhancerToken, mockLink);
+  app.register(ApolloClientLinkEnhancerToken, new ApolloLink());
   app.register(ApolloClientEndpointToken, '/graphql');
   app.register(ApolloClientToken, ApolloClientPlugin);
-  app.register(FetchToken, () => {});
+  app.register(FetchToken, unfetch);
 
   const testPlugin = createPlugin({
     deps: {
@@ -35,8 +34,11 @@ tape.only('link enhancers - via app.register', async t => {
     },
     middleware({universalClient}) {
       return async (ctx, next) => {
+        // $FlowFixMe
         const client = universalClient();
-        console.log('got client?', client);
+        // $FlowFixMe
+        t.ok(client.link);
+        t.end();
         return next();
       };
     },
@@ -45,6 +47,4 @@ tape.only('link enhancers - via app.register', async t => {
 
   const simulator = getSimulator(app);
   await simulator.render('/');
-
-  t.end();
 });
