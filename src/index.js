@@ -11,7 +11,7 @@ import {FetchToken} from 'fusion-tokens';
 import {GraphQLSchemaToken, ApolloContextToken} from 'fusion-apollo';
 import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
-import {ApolloLink, concat} from 'apollo-link';
+import {ApolloLink, from as apolloLinkFrom} from 'apollo-link';
 import {SchemaLink} from 'apollo-link-schema';
 
 import type {Token} from 'fusion-core';
@@ -28,6 +28,11 @@ export const ApolloClientEndpointToken: Token<string> = createToken(
 export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
 );
+
+export const ApolloClientLinkToken: Token<{
+  request: (operation: any, forward: any) => any,
+}> = createToken('ApolloClientLinkToken');
+
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
 const ApolloClientPlugin = createPlugin({
@@ -36,8 +41,9 @@ const ApolloClientPlugin = createPlugin({
     fetch: FetchToken,
     includeCredentials: ApolloClientCredentialsToken.optional,
     authKey: ApolloClientAuthKeyToken.optional,
-    schema: GraphQLSchemaToken.optional,
     apolloContext: ApolloContextToken.optional,
+    apolloLink: ApolloClientLinkToken.optional,
+    schema: GraphQLSchemaToken.optional,
   },
   provides({
     endpoint,
@@ -45,6 +51,7 @@ const ApolloClientPlugin = createPlugin({
     authKey = 'token',
     includeCredentials = 'same-origin',
     apolloContext,
+    apolloLink,
     schema,
   }) {
     return (ctx, initialState) => {
@@ -83,10 +90,13 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-
+      const links = [authMiddleware, connectionLink];
+      if (apolloLink) {
+        links.unshift(apolloLink);
+      }
       const client = new ApolloClient({
         ssrMode: true,
-        link: concat(authMiddleware, connectionLink),
+        link: apolloLinkFrom(links),
         cache: new InMemoryCache().restore(initialState),
       });
       return client;
