@@ -1084,7 +1084,7 @@ assert-plus@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
 
-assert@^1.1.1:
+assert@^1.1.1, assert@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
@@ -2470,9 +2470,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-apollo@^1.2.1-0:
-  version "1.2.1-0"
-  resolved "https://registry.yarnpkg.com/fusion-apollo/-/fusion-apollo-1.2.1-0.tgz#5ac82d2f09830475d229a758be54f41345b52795"
+fusion-apollo@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/fusion-apollo/-/fusion-apollo-1.2.1.tgz#a90d1f22272e24e419c993bea4371fb00bce211d"
   dependencies:
     fusion-react "^1.1.0"
 
@@ -2493,6 +2493,14 @@ fusion-react@^1.1.0:
   dependencies:
     prop-types "^15.6.2"
     react-is "^16.4.1"
+
+fusion-test-utils@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/fusion-test-utils/-/fusion-test-utils-1.2.2.tgz#f1c72156012d4e0731875cd9b52d4ad426994a9b"
+  dependencies:
+    assert "^1.4.1"
+    koa "^2.4.1"
+    node-mocks-http "^1.6.6"
 
 fusion-tokens@^1.0.4:
   version "1.0.4"

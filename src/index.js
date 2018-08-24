@@ -29,9 +29,9 @@ export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
 );
 
-export const ApolloClientLinkEnhancerToken: Token<
-  (operation: any, forward: any) => any
-> = createToken('ApolloClientLinkEnhancerToken');
+export const ApolloClientLinkEnhancerToken: Token<{
+  request: (operation: any, forward: any) => any,
+}> = createToken('ApolloClientLinkEnhancerToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
@@ -90,7 +90,7 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-
+      console.log('got linkEnhancer?!', linkEnhancer);
       const client = new ApolloClient({
         ssrMode: true,
         link: apolloLinkFrom(linkEnhancer, authMiddleware, connectionLink),
