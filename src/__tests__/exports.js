@@ -18,5 +18,6 @@ test('exports', t => {
   t.ok(ApolloClientCredentialsToken, 'exports ApolloClientCredentialsToken');
   t.ok(ApolloClientEndpointToken, 'exports ApolloClientEndpointToken');
   t.ok(ApolloClientAuthKeyToken, 'exports ApolloClientAuthKeyToken');
+  t.ok(ApolloClientLinkEnhancerToken, 'exports ApolloClientAuthKeyToken');
   t.end();
 });
