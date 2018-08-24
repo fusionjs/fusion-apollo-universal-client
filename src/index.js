@@ -29,9 +29,9 @@ export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
 );
 
-export const ApolloClientLinkEnhancerToken: Token<{
+export const ApolloClientLinkToken: Token<{
   request: (operation: any, forward: any) => any,
-}> = createToken('ApolloClientLinkEnhancerToken');
+}> = createToken('ApolloClientLinkToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
@@ -42,7 +42,7 @@ const ApolloClientPlugin = createPlugin({
     includeCredentials: ApolloClientCredentialsToken.optional,
     authKey: ApolloClientAuthKeyToken.optional,
     apolloContext: ApolloContextToken.optional,
-    linkEnhancer: ApolloClientLinkEnhancerToken.optional,
+    apolloLink: ApolloClientLinkToken.optional,
     schema: GraphQLSchemaToken.optional,
   },
   provides({
@@ -51,7 +51,7 @@ const ApolloClientPlugin = createPlugin({
     authKey = 'token',
     includeCredentials = 'same-origin',
     apolloContext,
-    linkEnhancer,
+    apolloLink,
     schema,
   }) {
     return (ctx, initialState) => {
@@ -91,8 +91,8 @@ const ApolloClientPlugin = createPlugin({
         return forward(operation);
       });
       const links = [authMiddleware, connectionLink];
-      if (linkEnhancer) {
-        links.unshift(linkEnhancer);
+      if (apolloLink) {
+        links.unshift(apolloLink);
       }
       const client = new ApolloClient({
         ssrMode: true,

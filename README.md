@@ -21,7 +21,7 @@ The Apollo Client is the entrypoint for most Apollo applications. This plugin pr
     - [`FetchToken`](#fetchtoken)
     - [`ApolloClientAuthKeyToken`](#apolloclientauthkeytoken)
     - [`ApolloClientCredentialsToken`](#apolloclientcredentialstoken)
-    - [`ApolloClientLinkEnhancerToken`](#apolloclientlinkenhancertoken)
+    - [`ApolloClientLinkToken`](#ApolloClientLinkToken)
 - [Examples](#examples)
 
 ---
@@ -155,7 +155,7 @@ import {ApolloClientCredentialsToken} from 'fusion-tokens';
 
 The default value is `same-origin`.
 
-##### `ApolloClientLinkEnhancerToken`
+##### `ApolloClientLinkToken`
 
 ```js
 import {ApolloClientCredentialsToken} from 'fusion-tokens';

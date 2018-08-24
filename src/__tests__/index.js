@@ -17,13 +17,12 @@ import unfetch from 'unfetch';
 
 import ApolloClientPlugin, {
   ApolloClientEndpointToken,
-  ApolloClientLinkEnhancerToken,
+  ApolloClientLinkToken,
 } from '../index.js';
 
-tape('link enhancers - via app.register', async t => {
-  /* Enhancer function */
+tape('link - via app.register', async t => {
   const app = new App('el', el => el);
-  app.register(ApolloClientLinkEnhancerToken, new ApolloLink());
+  app.register(ApolloClientLinkToken, new ApolloLink());
   app.register(ApolloClientEndpointToken, '/graphql');
   app.register(ApolloClientToken, ApolloClientPlugin);
   app.register(FetchToken, unfetch);
