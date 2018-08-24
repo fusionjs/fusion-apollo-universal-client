@@ -158,10 +158,10 @@ The default value is `same-origin`.
 ##### `ApolloClientLinkToken`
 
 ```js
-import {ApolloClientCredentialsToken} from 'fusion-tokens';
+import {ApolloClientLinkToken} from 'fusion-tokens';
 ```
 
-(Optional) A configuration value that provides the an [ApolloLink](https://www.apollographql.com/docs/link/composition.html) implementation enhancement.
+(Optional) A configuration value that provides an [ApolloLink](https://www.apollographql.com/docs/link/composition.html) implementation which is composed with the default ApolloLink.
 
 ###### Type
 
