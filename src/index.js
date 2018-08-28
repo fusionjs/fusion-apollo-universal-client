@@ -98,6 +98,14 @@ const ApolloClientPlugin = createPlugin({
         ssrMode: __NODE__ ? true : false,
         link: apolloLinkFrom(links),
         cache: new InMemoryCache().restore(initialState),
+        defaultOptions: {
+          watchQuery: {
+            fetchPolicy: 'network-only',
+          },
+          query: {
+            fetchPolicy: 'cache-and-network',
+          },
+        },
       });
       return client;
     };
