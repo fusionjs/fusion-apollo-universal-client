@@ -95,7 +95,7 @@ const ApolloClientPlugin = createPlugin({
         links.unshift(apolloLink);
       }
       const client = new ApolloClient({
-        ssrMode: true,
+        ssrMode: __NODE__ ? true : false,
         link: apolloLinkFrom(links),
         cache: new InMemoryCache().restore(initialState),
       });
