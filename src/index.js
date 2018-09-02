@@ -29,9 +29,7 @@ export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
 );
 
-export const ApolloClientLinkToken: Token<{
-  request: (operation: any, forward: any) => any,
-}> = createToken('ApolloClientLinkToken');
+export const ApolloClientLinkToken: Token<{any}> = createToken('ApolloClientLinkToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
@@ -90,9 +88,14 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-      const links = [authMiddleware, connectionLink];
-      if (apolloLink) {
-        links.unshift(apolloLink);
+      const links = [authMiddleware];
+      let terminalLink = connectionLink;
+      if (apolloLink && typeof(apolloLink) === 'function') {
+        links.push(apolloLink(terminalLink));
+        terminalLink = links[links.length - 1];
+      } else {
+        links.push(connectionLink); 
+        terminalLink = connectionLink;
       }
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
