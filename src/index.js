@@ -29,7 +29,7 @@ export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
 );
 
-export const ApolloClientLinkToken: Token<{any}> = createToken('ApolloClientLinkToken');
+export const ApolloClientLinkToken: Token<any> = createToken('ApolloClientLinkToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
