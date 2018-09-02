@@ -20,6 +20,7 @@ The Apollo Client is the entrypoint for most Apollo applications. This plugin pr
   - [Dependencies](#dependencies)
     - [`FetchToken`](#fetchtoken)
     - [`ApolloClientAuthKeyToken`](#apolloclientauthkeytoken)
+    - [`ApolloClientCacheToken`](#apolloclientcachetoken)
     - [`ApolloClientCredentialsToken`](#apolloclientcredentialstoken)
     - [`ApolloClientLinkToken`](#ApolloClientLinkToken)
 - [Examples](#examples)
@@ -138,6 +139,22 @@ import {ApolloClientAuthKeyToken} from 'fusion-tokens';
 ###### Default value
 
 If no token name is provided, authorization headers are not sent.
+
+##### `ApolloClientCacheToken`
+
+```js
+import {ApolloClientCacheToken} from 'fusion-tokens';
+```
+
+(Optional) A configuration value that provides the an Apollo [cache implementation](https://www.apollographql.com/docs/react/advanced/caching.html).
+
+###### Type
+
+- `mixed` - Optional.
+
+###### Default value
+
+The default value is `same-origin`.
 
 ##### `ApolloClientCredentialsToken`
 

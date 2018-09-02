@@ -8,6 +8,7 @@
 
 import tape from 'tape-cup';
 
+import {InMemoryCache} from 'apollo-cache-inmemory';
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {ApolloClientToken} from 'fusion-apollo';
@@ -37,6 +38,12 @@ tape('link - via app.register', async t => {
         const client = universalClient();
         // $FlowFixMe
         t.ok(client.link);
+        t.ok(
+          // $FlowFixMe
+          client.cache instanceof InMemoryCache,
+          'default cache is an instance of InMemoryCache'
+        );
+
         t.end();
         return next();
       };

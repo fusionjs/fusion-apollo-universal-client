@@ -8,6 +8,7 @@
 
 import test from 'tape-cup';
 import ApolloClientPlugin, {
+  ApolloClientCacheToken,
   ApolloClientCredentialsToken,
   ApolloClientEndpointToken,
   ApolloClientAuthKeyToken,
@@ -16,6 +17,7 @@ import ApolloClientPlugin, {
 
 test('exports', t => {
   t.ok(ApolloClientPlugin, 'exports ApolloClientPlugin');
+  t.ok(ApolloClientCacheToken, 'exports ApolloClientCacheToken');
   t.ok(ApolloClientCredentialsToken, 'exports ApolloClientCredentialsToken');
   t.ok(ApolloClientEndpointToken, 'exports ApolloClientEndpointToken');
   t.ok(ApolloClientAuthKeyToken, 'exports ApolloClientAuthKeyToken');
