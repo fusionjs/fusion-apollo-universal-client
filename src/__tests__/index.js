@@ -18,12 +18,15 @@ import unfetch from 'unfetch';
 
 import ApolloClientPlugin, {
   ApolloClientEndpointToken,
-  ApolloClientLinkToken,
+  GetApolloClientLinksToken,
 } from '../index.js';
 
 tape('link - via app.register', async t => {
   const app = new App('el', el => el);
-  app.register(ApolloClientLinkToken, new ApolloLink());
+  app.register(GetApolloClientLinksToken, links => [
+    new ApolloLink(),
+    ...links,
+  ]);
   app.register(ApolloClientEndpointToken, '/graphql');
   app.register(ApolloClientToken, ApolloClientPlugin);
   app.register(FetchToken, unfetch);
@@ -39,7 +42,6 @@ tape('link - via app.register', async t => {
         // $FlowFixMe
         t.ok(client.link);
         t.ok(
-          // $FlowFixMe
           client.cache instanceof InMemoryCache,
           'default cache is an instance of InMemoryCache'
         );

@@ -12,7 +12,7 @@ import ApolloClientPlugin, {
   ApolloClientCredentialsToken,
   ApolloClientEndpointToken,
   ApolloClientAuthKeyToken,
-  ApolloClientLinkToken,
+  GetApolloClientLinksToken,
 } from '../index.js';
 
 test('exports', t => {
@@ -21,6 +21,6 @@ test('exports', t => {
   t.ok(ApolloClientCredentialsToken, 'exports ApolloClientCredentialsToken');
   t.ok(ApolloClientEndpointToken, 'exports ApolloClientEndpointToken');
   t.ok(ApolloClientAuthKeyToken, 'exports ApolloClientAuthKeyToken');
-  t.ok(ApolloClientLinkToken, 'exports ApolloClientAuthKeyToken');
+  t.ok(GetApolloClientLinksToken, 'exports ApolloClientAuthKeyToken');
   t.end();
 });
