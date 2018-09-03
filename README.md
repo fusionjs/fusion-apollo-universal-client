@@ -154,7 +154,7 @@ import {ApolloClientCacheToken} from 'fusion-tokens';
 
 ###### Default value
 
-The default value is `same-origin`.
+The default cache implementation uses [InMemoryCache](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-cache-inmemory).
 
 ##### `ApolloClientCredentialsToken`
 
