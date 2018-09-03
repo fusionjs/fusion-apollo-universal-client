@@ -178,10 +178,10 @@ The default value is `same-origin`.
 import {GetApolloClientLinksToken} from 'fusion-tokens';
 ```
 
-(Optional) A configuration value that provides an [ApolloLink](https://www.apollographql.com/docs/link/composition.html) implementation which is composed with the default ApolloLink.
+(Optional) A configuration value that provides a array of [ApolloLinks](https://www.apollographql.com/docs/link/composition.html). The default links are provided as an argument to the provided function.
 
 ###### Type
 
-- `(operation: any, forward: any) => any` - Optional.
+- `(Array<ApolloLinkType>) => Array<ApolloLinkType>` - Optional.
 
 ---
