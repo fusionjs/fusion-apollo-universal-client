@@ -88,7 +88,7 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-      const links = [authMiddleware];
+      let links = [authMiddleware];
       if (getApolloLinks && typeof(getApolloLinks) === 'function') {
         links = links.concat(getApolloLinks(connectionLink));
       } else {
