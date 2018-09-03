@@ -89,7 +89,11 @@ const ApolloClientPlugin = createPlugin({
         return forward(operation);
       });
       
-      const links = getApolloLinks([authMiddleware, connectionLink]);  
+      const originalLinks = [authMiddleware, connectionLink];
+      
+      const links = getApolloLinks && typeof(getApolloLinks) === 'function'
+                    ? getApolloLinks(originalLinks)
+                    : originalLinks;
       
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
