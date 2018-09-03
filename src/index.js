@@ -91,7 +91,7 @@ const ApolloClientPlugin = createPlugin({
       const links = [authMiddleware];
       let terminalLink = connectionLink;
       if (getApolloLinks && typeof(getApolloLinks) === 'function') {
-        links = links.concat(getApolloLinks(terminalLink));
+        links = links.concat(getApolloLinks(connectionLink));
       } else {
         links.push(connectionLink); 
       }
