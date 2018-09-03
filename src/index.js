@@ -22,11 +22,16 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import * as Cookies from 'js-cookie';
 
-export const ApolloClientEndpointToken: Token<string> = createToken(
-  'ApolloClientEndpointToken'
-);
+export const ApolloClientCacheToken: Token<{
+  restore: mixed => void,
+}> = createToken('ApolloClientCacheToken');
+
 export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
+);
+
+export const ApolloClientEndpointToken: Token<string> = createToken(
+  'ApolloClientEndpointToken'
 );
 
 export const ApolloClientLinkToken: Token<{
@@ -37,6 +42,7 @@ export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
 const ApolloClientPlugin = createPlugin({
   deps: {
+    cache: ApolloClientCacheToken.optional,
     endpoint: ApolloClientEndpointToken,
     fetch: FetchToken,
     includeCredentials: ApolloClientCredentialsToken.optional,
@@ -46,6 +52,7 @@ const ApolloClientPlugin = createPlugin({
     schema: GraphQLSchemaToken.optional,
   },
   provides({
+    cache = new InMemoryCache(),
     endpoint,
     fetch,
     authKey = 'token',
@@ -97,7 +104,7 @@ const ApolloClientPlugin = createPlugin({
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
         link: apolloLinkFrom(links),
-        cache: new InMemoryCache().restore(initialState),
+        cache: cache.restore(initialState),
         defaultOptions: {
           watchQuery: {
             fetchPolicy: 'network-only',
