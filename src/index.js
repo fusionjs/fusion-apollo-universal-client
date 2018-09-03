@@ -29,7 +29,7 @@ export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
 );
 
-export const ApolloClientLinkToken: Token<any> = createToken('ApolloClientLinkToken');
+export const GetApolloClientLinksToken: Token<any> = createToken('GetApolloClientLinksToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
 
@@ -40,7 +40,7 @@ const ApolloClientPlugin = createPlugin({
     includeCredentials: ApolloClientCredentialsToken.optional,
     authKey: ApolloClientAuthKeyToken.optional,
     apolloContext: ApolloContextToken.optional,
-    apolloLink: ApolloClientLinkToken.optional,
+    getApolloLinks: GetApolloClientLinksToken.optional,
     schema: GraphQLSchemaToken.optional,
   },
   provides({
@@ -49,7 +49,7 @@ const ApolloClientPlugin = createPlugin({
     authKey = 'token',
     includeCredentials = 'same-origin',
     apolloContext,
-    apolloLink,
+    getApolloLinks,
     schema,
   }) {
     return (ctx, initialState) => {
@@ -90,12 +90,10 @@ const ApolloClientPlugin = createPlugin({
       });
       const links = [authMiddleware];
       let terminalLink = connectionLink;
-      if (apolloLink && typeof(apolloLink) === 'function') {
-        links.push(apolloLink(terminalLink));
-        terminalLink = links[links.length - 1];
+      if (getApolloLinks && typeof(getApolloLinks) === 'function') {
+        links = links.concat(getApolloLinks(terminalLink));
       } else {
         links.push(connectionLink); 
-        terminalLink = connectionLink;
       }
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
