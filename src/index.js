@@ -37,7 +37,7 @@ export const ApolloClientEndpointToken: Token<string> = createToken(
 type ApolloLinkType = {request: (operation: any, forward: any) => any};
 
 export const GetApolloClientLinksToken: Token<
-  (ctx: mixed) => (Array<ApolloLinkType>) => Array<ApolloLinkType>
+  (Array<ApolloLinkType>, ctx: <mixed>) => Array<ApolloLinkType>
 > = createToken('GetApolloClientLinksToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
@@ -99,7 +99,7 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-      const links = getApolloLinks(ctx)([authMiddleware, connectionLink]);
+      const links = getApolloLinks([authMiddleware, connectionLink], ctx);
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
         link: apolloLinkFrom(links),
