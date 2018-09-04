@@ -60,7 +60,7 @@ const ApolloClientPlugin = createPlugin({
     authKey = 'token',
     includeCredentials = 'same-origin',
     apolloContext,
-    getApolloLinks = links => links,
+    getApolloLinks,
     schema,
   }) {
     return (ctx, initialState) => {
@@ -99,7 +99,9 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-      const links = getApolloLinks([authMiddleware, connectionLink], ctx);
+      const links: Array<ApolloLinkType> = getApolloLinks
+        ? getApolloLinks([authMiddleware, connectionLink], ctx)
+        : [authMiddleware, connectionLink];
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
         link: apolloLinkFrom(links),
