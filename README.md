@@ -127,7 +127,7 @@ If no fetch implementation is provided, [`window.fetch`](https://developer.mozil
 ##### `ApolloClientAuthKeyToken`
 
 ```js
-import {ApolloClientAuthKeyToken} from 'fusion-tokens';
+import {ApolloClientAuthKeyToken} from 'fusion-apollo-universal-client';
 ```
 
 (Optional) A configuration value that provides the value of an authentication token to use from the document cookies. If provided, this token is used in the Apollo auth middleware as an authorization header.
@@ -143,7 +143,7 @@ If no token name is provided, authorization headers are not sent.
 ##### `ApolloClientCacheToken`
 
 ```js
-import {ApolloClientCacheToken} from 'fusion-tokens';
+import {ApolloClientCacheToken} from 'fusion-apollo-universal-client';
 ```
 
 (Optional) A configuration value that provides the an Apollo [cache implementation](https://www.apollographql.com/docs/react/advanced/caching.html).
@@ -159,7 +159,7 @@ The default cache implementation uses [InMemoryCache](https://github.com/apollog
 ##### `ApolloClientCredentialsToken`
 
 ```js
-import {ApolloClientCredentialsToken} from 'fusion-tokens';
+import {ApolloClientCredentialsToken} from 'fusion-apollo-universal-client';
 ```
 
 (Optional) A configuration value that provides the value of credentials value passed directly into the [fetch implementation](https://github.com/github/fetch).
@@ -175,7 +175,7 @@ The default value is `same-origin`.
 ##### `GetApolloClientLinksToken`
 
 ```js
-import {GetApolloClientLinksToken} from 'fusion-tokens';
+import {GetApolloClientLinksToken} from 'fusion-apollo-universal-client';
 ```
 
 (Optional) A configuration value that provides a array of [ApolloLinks](https://www.apollographql.com/docs/link/composition.html). The default links are provided as an argument to the provided function.
