@@ -14,7 +14,7 @@ import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, from as apolloLinkFrom} from 'apollo-link';
 import {SchemaLink} from 'apollo-link-schema';
 
-import type {Token} from 'fusion-core';
+import type {Context, Token} from 'fusion-core';
 
 // Fixed By: https://github.com/benmosher/eslint-plugin-import/issues/975#issuecomment-348807796
 // eslint-disable-next-line
@@ -37,7 +37,7 @@ export const ApolloClientEndpointToken: Token<string> = createToken(
 type ApolloLinkType = {request: (operation: any, forward: any) => any};
 
 export const GetApolloClientLinksToken: Token<
-  (Array<ApolloLinkType>) => Array<ApolloLinkType>
+  (Array<ApolloLinkType>, ctx: Context) => Array<ApolloLinkType>
 > = createToken('GetApolloClientLinksToken');
 
 export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
@@ -60,7 +60,7 @@ const ApolloClientPlugin = createPlugin({
     authKey = 'token',
     includeCredentials = 'same-origin',
     apolloContext,
-    getApolloLinks = links => links,
+    getApolloLinks,
     schema,
   }) {
     return (ctx, initialState) => {
@@ -99,7 +99,9 @@ const ApolloClientPlugin = createPlugin({
 
         return forward(operation);
       });
-      const links = getApolloLinks([authMiddleware, connectionLink]);
+      const links: Array<ApolloLinkType> = getApolloLinks
+        ? getApolloLinks([authMiddleware, connectionLink], ctx)
+        : [authMiddleware, connectionLink];
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
         link: apolloLinkFrom(links),
