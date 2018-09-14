@@ -104,6 +104,7 @@ const ApolloClientPlugin = createPlugin({
         : [authMiddleware, connectionLink];
       const client = new ApolloClient({
         ssrMode: __NODE__ ? true : false,
+        connectToDevTools: __DEV__ ? true : false,
         link: apolloLinkFrom(links),
         cache: cache.restore(initialState),
         defaultOptions: {
