@@ -103,7 +103,8 @@ const ApolloClientPlugin = createPlugin({
         ? getApolloLinks([authMiddleware, connectionLink], ctx)
         : [authMiddleware, connectionLink];
       const client = new ApolloClient({
-        ssrMode: __NODE__ ? true : false,
+        // ssrMode must be set to true in order to use SSR hydrated cache.
+        ssrMode: true,
         connectToDevTools: __BROWSER__ && __DEV__,
         link: apolloLinkFrom(links),
         cache: cache.restore(initialState),
