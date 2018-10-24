@@ -3,5 +3,11 @@ services:
   fusion-apollo-universal-client:
     build: .
     volumes:
-      - .:/fusion-apollo-universal-client
+      - '.:/fusion-apollo-universal-client'
       - /fusion-apollo-universal-client/node_modules/
+  fusion-apollo-universal-client-node-last:
+    extends: fusion-apollo-universal-client
+    build:
+      context: .
+      args:
+        BASE_IMAGE: 'uber/web-base-image:1.0.9'
