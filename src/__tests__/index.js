@@ -6,11 +6,9 @@
  * @flow
  */
 
-import tape from 'tape-cup';
-
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import App, {createPlugin} from 'fusion-core';
-import {getSimulator} from 'fusion-test-utils';
+import {getSimulator, test} from 'fusion-test-utils';
 import {ApolloClientToken} from 'fusion-apollo';
 import {ApolloLink} from 'apollo-link';
 import {FetchToken} from 'fusion-tokens';
@@ -21,7 +19,7 @@ import ApolloClientPlugin, {
   GetApolloClientLinksToken,
 } from '../index.js';
 
-tape('link - via app.register', async t => {
+test('link - via app.register', async t => {
   const app = new App('el', el => el);
   app.register(GetApolloClientLinksToken, links => [
     new ApolloLink(),
@@ -46,7 +44,6 @@ tape('link - via app.register', async t => {
           'default cache is an instance of InMemoryCache'
         );
 
-        t.end();
         return next();
       };
     },

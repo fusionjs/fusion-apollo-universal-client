@@ -6,7 +6,7 @@
  * @flow
  */
 
-import test from 'tape-cup';
+import {test} from 'fusion-test-utils';
 import ApolloClientPlugin, {
   ApolloClientCacheToken,
   ApolloClientCredentialsToken,
@@ -22,5 +22,4 @@ test('exports', t => {
   t.ok(ApolloClientEndpointToken, 'exports ApolloClientEndpointToken');
   t.ok(ApolloClientAuthKeyToken, 'exports ApolloClientAuthKeyToken');
   t.ok(GetApolloClientLinksToken, 'exports ApolloClientAuthKeyToken');
-  t.end();
 });
