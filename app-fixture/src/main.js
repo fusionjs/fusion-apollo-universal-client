@@ -8,10 +8,7 @@ import {FetchToken} from 'fusion-tokens';
 import unfetch from 'unfetch';
 import {addMockFunctionsToSchema, makeExecutableSchema} from 'graphql-tools';
 
-import ApolloClientPlugin, {
-  ApolloClientEndpointToken,
-  // $FlowFixMe
-} from './pluginCopy'; // eslint-disable-line
+import ApolloClientPlugin, {ApolloClientEndpointToken} from '../../src/index';
 
 import root from './root.js';
 

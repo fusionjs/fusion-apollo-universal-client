@@ -57,7 +57,7 @@
     "clean": "rm -rf dist",
     "lint": "eslint . --ignore-path .gitignore",
     "transpile": "npm run clean && cup build",
-    "test": "git clean -xf app-fixture/src/pluginCopy && cp src/*.js app-fixture/src/pluginCopy/. && fusion test",
+    "test": "fusion test",
     "prepublish": "npm run transpile"
   },
   "peerDependencies": {
