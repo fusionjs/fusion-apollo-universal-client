@@ -33,7 +33,7 @@
     "eslint-plugin-jest": "^21.26.2",
     "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-react": "7.11.1",
-    "flow-bin": "0.84.0",
+    "flow-bin": "0.86.0",
     "fusion-apollo": "^1.4.0",
     "fusion-cli": "^1.12.1",
     "fusion-core": "1.8.0",
