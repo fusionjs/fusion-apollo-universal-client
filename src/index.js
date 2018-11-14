@@ -14,7 +14,7 @@ import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, from as apolloLinkFrom} from 'apollo-link';
 import {SchemaLink} from 'apollo-link-schema';
 
-import type {Context, Token} from 'fusion-core';
+import type {Context, FusionPlugin, Token} from 'fusion-core';
 
 // Fixed By: https://github.com/benmosher/eslint-plugin-import/issues/975#issuecomment-348807796
 // eslint-disable-next-line
@@ -40,9 +40,27 @@ export const GetApolloClientLinksToken: Token<
   (Array<ApolloLinkType>, ctx: Context) => Array<ApolloLinkType>
 > = createToken('GetApolloClientLinksToken');
 
-export const ApolloClientAuthKeyToken = createToken('ApolloClientAuthKeyToken');
+export const ApolloClientAuthKeyToken: Token<string> = createToken(
+  'ApolloClientAuthKeyToken'
+);
 
-const ApolloClientPlugin = createPlugin({
+type ApolloClientDepsType = {
+  cache: typeof ApolloClientCacheToken.optional,
+  endpoint: typeof ApolloClientEndpointToken,
+  fetch: typeof FetchToken,
+  includeCredentials: typeof ApolloClientCredentialsToken.optional,
+  authKey: typeof ApolloClientAuthKeyToken.optional,
+  apolloContext: typeof ApolloContextToken.optional,
+  getApolloLinks: typeof GetApolloClientLinksToken.optional,
+  schema: typeof GraphQLSchemaToken.optional,
+};
+
+type ApolloClientType = typeof ApolloClient;
+
+const ApolloClientPlugin: FusionPlugin<
+  ApolloClientDepsType,
+  ApolloClientType
+> = createPlugin({
   deps: {
     cache: ApolloClientCacheToken.optional,
     endpoint: ApolloClientEndpointToken,
