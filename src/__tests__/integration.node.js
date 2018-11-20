@@ -45,4 +45,5 @@ test('able to hydrate GraphQL data from SSR render', async t => {
 
   await browser.close();
   proc.kill();
-}, 60000); // $FlowFixMe - Need to add timeouts
+  // $FlowFixMe - Need to add timeouts
+}, 60000);
