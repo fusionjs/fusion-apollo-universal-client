@@ -8,7 +8,7 @@
 
 import {test} from 'fusion-test-utils';
 import ApolloClientPlugin, {
-  ApolloClientCacheToken,
+  GetApolloClientCacheToken,
   ApolloClientCredentialsToken,
   ApolloClientEndpointToken,
   ApolloClientAuthKeyToken,
@@ -17,7 +17,7 @@ import ApolloClientPlugin, {
 
 test('exports', t => {
   t.ok(ApolloClientPlugin, 'exports ApolloClientPlugin');
-  t.ok(ApolloClientCacheToken, 'exports ApolloClientCacheToken');
+  t.ok(GetApolloClientCacheToken, 'exports GetApolloClientCacheToken');
   t.ok(ApolloClientCredentialsToken, 'exports ApolloClientCredentialsToken');
   t.ok(ApolloClientEndpointToken, 'exports ApolloClientEndpointToken');
   t.ok(ApolloClientAuthKeyToken, 'exports ApolloClientAuthKeyToken');

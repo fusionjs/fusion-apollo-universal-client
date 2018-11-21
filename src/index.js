@@ -22,9 +22,13 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 import * as Cookies from 'js-cookie';
 
-export const ApolloClientCacheToken: Token<{
-  restore: mixed => void,
-}> = createToken('ApolloClientCacheToken');
+export const GetApolloClientCacheToken: Token<
+  (
+    ctx: Context
+  ) => {
+    restore: mixed => void,
+  }
+> = createToken('GetApolloClientCacheToken');
 
 export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
@@ -45,7 +49,7 @@ export const ApolloClientAuthKeyToken: Token<string> = createToken(
 );
 
 type ApolloClientDepsType = {
-  cache: typeof ApolloClientCacheToken.optional,
+  getCache: typeof GetApolloClientCacheToken.optional,
   endpoint: typeof ApolloClientEndpointToken,
   fetch: typeof FetchToken,
   includeCredentials: typeof ApolloClientCredentialsToken.optional,
@@ -57,12 +61,14 @@ type ApolloClientDepsType = {
 
 type ApolloClientType = typeof ApolloClient;
 
+function Container() {}
+
 const ApolloClientPlugin: FusionPlugin<
   ApolloClientDepsType,
   ApolloClientType
 > = createPlugin({
   deps: {
-    cache: ApolloClientCacheToken.optional,
+    getCache: GetApolloClientCacheToken.optional,
     endpoint: ApolloClientEndpointToken,
     fetch: FetchToken,
     includeCredentials: ApolloClientCredentialsToken.optional,
@@ -72,7 +78,7 @@ const ApolloClientPlugin: FusionPlugin<
     schema: GraphQLSchemaToken.optional,
   },
   provides({
-    cache = new InMemoryCache(),
+    getCache = ctx => new InMemoryCache(),
     endpoint,
     fetch,
     authKey = 'token',
@@ -81,7 +87,8 @@ const ApolloClientPlugin: FusionPlugin<
     getApolloLinks,
     schema,
   }) {
-    return (ctx, initialState) => {
+    function getClient(ctx, initialState) {
+      const cache = getCache(ctx);
       const getBrowserProps = () => {
         return Cookies.get(authKey);
       };
@@ -114,12 +121,12 @@ const ApolloClientPlugin: FusionPlugin<
             },
           });
         }
-
         return forward(operation);
       });
       const links: Array<ApolloLinkType> = getApolloLinks
         ? getApolloLinks([authMiddleware, connectionLink], ctx)
         : [authMiddleware, connectionLink];
+
       const client = new ApolloClient({
         // ssrMode must be set to true in order to use SSR hydrated cache.
         ssrMode: true,
@@ -135,6 +142,14 @@ const ApolloClientPlugin: FusionPlugin<
           },
         },
       });
+      return client;
+    }
+    return (ctx, initialState) => {
+      if (ctx.memoized.has(Container)) {
+        return ctx.memoized.get(Container);
+      }
+      const client = getClient(ctx, initialState);
+      ctx.memoized.set(Container, client);
       return client;
     };
   },

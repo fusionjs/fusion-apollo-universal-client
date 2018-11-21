@@ -19,7 +19,7 @@ import ApolloClientPlugin, {
   GetApolloClientLinksToken,
 } from '../index.js';
 
-test('link - via app.register', async t => {
+test('ApolloUniveralClient', async t => {
   const app = new App('el', el => el);
   app.register(GetApolloClientLinksToken, links => [
     new ApolloLink(),
@@ -29,6 +29,7 @@ test('link - via app.register', async t => {
   app.register(ApolloClientToken, ApolloClientPlugin);
   app.register(FetchToken, unfetch);
 
+  const clients = [];
   const testPlugin = createPlugin({
     deps: {
       universalClient: ApolloClientToken,
@@ -36,14 +37,13 @@ test('link - via app.register', async t => {
     middleware({universalClient}) {
       return async (ctx, next) => {
         // $FlowFixMe
-        const client = universalClient();
+        const client = universalClient(ctx, {});
+        clients.push(client);
         // $FlowFixMe
         t.ok(client.link);
-        t.ok(
-          client.cache instanceof InMemoryCache,
-          'default cache is an instance of InMemoryCache'
-        );
-
+        t.ok(client.cache instanceof InMemoryCache);
+        // memoizes the client on ctx correctly
+        t.equal(client, universalClient(ctx, {}));
         return next();
       };
     },
@@ -52,4 +52,8 @@ test('link - via app.register', async t => {
 
   const simulator = getSimulator(app);
   await simulator.render('/');
+  await simulator.render('/');
+  t.equal(clients.length, 2);
+  t.notEqual(clients[0], clients[1]);
+  t.notEqual(clients[0].cache, clients[1].cache);
 });
