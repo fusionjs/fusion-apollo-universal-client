@@ -125,7 +125,7 @@ const ApolloClientPlugin: FusionPlugin<
         ssrMode: true,
         connectToDevTools: __BROWSER__ && __DEV__,
         link: apolloLinkFrom(links),
-        cache: cache.restore(initialState),
+        cache: __NODE__ ? new InMemoryCache() : cache.restore(initialState),
         defaultOptions: {
           watchQuery: {
             fetchPolicy: 'network-only',
