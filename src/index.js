@@ -59,13 +59,16 @@ type ApolloClientDepsType = {
   schema: typeof GraphQLSchemaToken.optional,
 };
 
-type ApolloClientType = typeof ApolloClient;
+type InitApolloClientType = (
+  ctx: Context,
+  initialState: mixed
+) => ApolloClient<mixed>;
 
 function Container() {}
 
 const ApolloClientPlugin: FusionPlugin<
   ApolloClientDepsType,
-  ApolloClientType
+  InitApolloClientType
 > = createPlugin({
   deps: {
     getCache: GetApolloClientCacheToken.optional,
@@ -144,7 +147,7 @@ const ApolloClientPlugin: FusionPlugin<
       });
       return client;
     }
-    return (ctx, initialState) => {
+    return (ctx: Context, initialState: mixed) => {
       if (ctx.memoized.has(Container)) {
         return ctx.memoized.get(Container);
       }
