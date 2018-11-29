@@ -13,6 +13,7 @@ import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, from as apolloLinkFrom} from 'apollo-link';
 import {SchemaLink} from 'apollo-link-schema';
+import type {ApolloCache} from 'apollo-client';
 
 import type {Context, FusionPlugin, Token} from 'fusion-core';
 
@@ -23,11 +24,7 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import * as Cookies from 'js-cookie';
 
 export const GetApolloClientCacheToken: Token<
-  (
-    ctx: Context
-  ) => {
-    restore: mixed => void,
-  }
+  (ctx: Context) => ApolloCache<mixed>
 > = createToken('GetApolloClientCacheToken');
 
 export const ApolloClientCredentialsToken: Token<string> = createToken(
