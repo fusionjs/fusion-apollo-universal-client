@@ -1,6 +1,6 @@
 {
   "name": "fusion-apollo-universal-client",
-  "version": "2.0.1-1",
+  "version": "2.0.1",
   "main": "./dist/index.js",
   "license": "MIT",
   "repository": "fusionjs/fusion-apollo-universal-client",
@@ -63,9 +63,9 @@
   },
   "peerDependencies": {
     "fusion-core": "^1.0.0",
+    "graphql": "^14.0.2",
     "react": "16.x",
-    "react-dom": "16.x",
-    "graphql": "^14.0.2"
+    "react-dom": "16.x"
   },
   "engines": {
     "node": ">= 8.9.0"
