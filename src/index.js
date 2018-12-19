@@ -128,19 +128,10 @@ const ApolloClientPlugin: FusionPlugin<
         : [authMiddleware, connectionLink];
 
       const client = new ApolloClient({
-        // ssrMode must be set to true in order to use SSR hydrated cache.
-        ssrMode: true,
+        ssrMode: __NODE__,
         connectToDevTools: __BROWSER__ && __DEV__,
         link: apolloLinkFrom(links),
         cache: cache.restore(initialState),
-        defaultOptions: {
-          watchQuery: {
-            fetchPolicy: 'network-only',
-          },
-          query: {
-            fetchPolicy: 'cache-and-network',
-          },
-        },
       });
       return client;
     }
