@@ -11,7 +11,7 @@ import path from 'path';
 
 import puppeteer from 'puppeteer';
 import {test} from 'fusion-test-utils';
-import {dev} from 'fusion-cli/test/run-command';
+import {dev} from 'fusion-cli/test/e2e/utils';
 
 test('able to hydrate GraphQL data from SSR render', async t => {
   const dir = path.resolve(__dirname, '../../app-fixture');
