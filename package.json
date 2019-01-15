@@ -56,7 +56,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint": "eslint src/ --ignore-path .gitignore",
     "transpile": "npm run clean && cup build",
     "test": "fusion test",
     "prepublish": "npm run transpile"

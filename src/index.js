@@ -13,7 +13,7 @@ import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, from as apolloLinkFrom} from 'apollo-link';
 import {SchemaLink} from 'apollo-link-schema';
-import type {ApolloCache} from 'apollo-client';
+import type {ApolloCache, ApolloClientOptions} from 'apollo-client';
 
 import type {Context, FusionPlugin, Token} from 'fusion-core';
 
@@ -35,6 +35,10 @@ export const ApolloClientEndpointToken: Token<string> = createToken(
   'ApolloClientEndpointToken'
 );
 
+export const ApolloClientDefaultOptionsToken: Token<
+  $PropertyType<ApolloClientOptions<any>, 'defaultOptions'>
+> = createToken('ApolloClientDefaultOptionsToken');
+
 type ApolloLinkType = {request: (operation: any, forward: any) => any};
 
 export const GetApolloClientLinksToken: Token<
@@ -54,6 +58,7 @@ type ApolloClientDepsType = {
   apolloContext: typeof ApolloContextToken.optional,
   getApolloLinks: typeof GetApolloClientLinksToken.optional,
   schema: typeof GraphQLSchemaToken.optional,
+  defaultOptions: typeof ApolloClientDefaultOptionsToken.optional,
 };
 
 type InitApolloClientType = (
@@ -76,6 +81,7 @@ const ApolloClientPlugin: FusionPlugin<
     apolloContext: ApolloContextToken.optional,
     getApolloLinks: GetApolloClientLinksToken.optional,
     schema: GraphQLSchemaToken.optional,
+    defaultOptions: ApolloClientDefaultOptionsToken.optional,
   },
   provides({
     getCache = ctx => new InMemoryCache(),
@@ -86,6 +92,7 @@ const ApolloClientPlugin: FusionPlugin<
     apolloContext,
     getApolloLinks,
     schema,
+    defaultOptions,
   }) {
     function getClient(ctx, initialState) {
       const cache = getCache(ctx);
@@ -128,19 +135,11 @@ const ApolloClientPlugin: FusionPlugin<
         : [authMiddleware, connectionLink];
 
       const client = new ApolloClient({
-        // ssrMode must be set to true in order to use SSR hydrated cache.
-        ssrMode: true,
+        ssrMode: __NODE__,
         connectToDevTools: __BROWSER__ && __DEV__,
         link: apolloLinkFrom(links),
         cache: cache.restore(initialState),
-        defaultOptions: {
-          watchQuery: {
-            fetchPolicy: 'network-only',
-          },
-          query: {
-            fetchPolicy: 'cache-and-network',
-          },
-        },
+        defaultOptions,
       });
       return client;
     }
