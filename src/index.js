@@ -51,7 +51,7 @@ export const ApolloClientAuthKeyToken: Token<string> = createToken(
 
 type ApolloClientDepsType = {
   getCache: typeof GetApolloClientCacheToken.optional,
-  endpoint: typeof ApolloClientEndpointToken,
+  endpoint: typeof ApolloClientEndpointToken.optional,
   fetch: typeof FetchToken,
   includeCredentials: typeof ApolloClientCredentialsToken.optional,
   authKey: typeof ApolloClientAuthKeyToken.optional,
@@ -74,7 +74,7 @@ const ApolloClientPlugin: FusionPlugin<
 > = createPlugin({
   deps: {
     getCache: GetApolloClientCacheToken.optional,
-    endpoint: ApolloClientEndpointToken,
+    endpoint: ApolloClientEndpointToken.optional,
     fetch: FetchToken,
     includeCredentials: ApolloClientCredentialsToken.optional,
     authKey: ApolloClientAuthKeyToken.optional,
@@ -85,7 +85,7 @@ const ApolloClientPlugin: FusionPlugin<
   },
   provides({
     getCache = ctx => new InMemoryCache(),
-    endpoint,
+    endpoint = '/graphql',
     fetch,
     authKey = 'token',
     includeCredentials = 'same-origin',
