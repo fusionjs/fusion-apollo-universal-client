@@ -89,7 +89,7 @@ const ApolloClientPlugin: FusionPlugin<
     fetch,
     authKey = 'token',
     includeCredentials = 'same-origin',
-    apolloContext,
+    apolloContext = ctx => ctx,
     getApolloLinks,
     schema,
     defaultOptions,
