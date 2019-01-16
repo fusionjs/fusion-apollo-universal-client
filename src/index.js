@@ -110,7 +110,8 @@ const ApolloClientPlugin: FusionPlugin<
               schema,
               context:
                 typeof apolloContext === 'function'
-                  ? apolloContext(ctx)
+                  ? // $FlowFixMe
+                    apolloContext(ctx)
                   : apolloContext,
             })
           : new HttpLink({
