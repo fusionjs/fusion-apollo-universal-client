@@ -49,6 +49,21 @@ export const ApolloClientAuthKeyToken: Token<string> = createToken(
   'ApolloClientAuthKeyToken'
 );
 
+export const ApolloClientResolversToken: Token<
+  ResolverMapType | $ReadOnlyArray<ResolverMapType>
+> = createToken('ApolloClientResolversToken');
+
+type ResolverMapType = {
+  +[key: string]: {
+    +[field: string]: (
+      rootValue?: any,
+      args?: any,
+      context?: any,
+      info?: any
+    ) => any,
+  },
+};
+
 type ApolloClientDepsType = {
   getCache: typeof GetApolloClientCacheToken.optional,
   endpoint: typeof ApolloClientEndpointToken.optional,
@@ -58,6 +73,7 @@ type ApolloClientDepsType = {
   apolloContext: typeof ApolloContextToken.optional,
   getApolloLinks: typeof GetApolloClientLinksToken.optional,
   schema: typeof GraphQLSchemaToken.optional,
+  resolvers: typeof ApolloClientResolversToken.optional,
   defaultOptions: typeof ApolloClientDefaultOptionsToken.optional,
 };
 
@@ -81,6 +97,7 @@ const ApolloClientPlugin: FusionPlugin<
     apolloContext: ApolloContextToken.optional,
     getApolloLinks: GetApolloClientLinksToken.optional,
     schema: GraphQLSchemaToken.optional,
+    resolvers: ApolloClientResolversToken.optional,
     defaultOptions: ApolloClientDefaultOptionsToken.optional,
   },
   provides({
@@ -92,6 +109,7 @@ const ApolloClientPlugin: FusionPlugin<
     apolloContext = ctx => ctx,
     getApolloLinks,
     schema,
+    resolvers,
     defaultOptions,
   }) {
     function getClient(ctx, initialState) {
@@ -140,6 +158,7 @@ const ApolloClientPlugin: FusionPlugin<
         connectToDevTools: __BROWSER__ && __DEV__,
         link: apolloLinkFrom(links),
         cache: cache.restore(initialState),
+        resolvers,
         defaultOptions,
       });
       return client;

@@ -14,6 +14,7 @@ import ApolloClientPlugin, {
   ApolloClientAuthKeyToken,
   GetApolloClientLinksToken,
   ApolloClientDefaultOptionsToken,
+  ApolloClientResolversToken,
 } from '../index.js';
 
 test('exports', t => {
@@ -24,4 +25,5 @@ test('exports', t => {
   t.ok(ApolloClientAuthKeyToken, 'exports ApolloClientAuthKeyToken');
   t.ok(GetApolloClientLinksToken, 'exports ApolloClientAuthKeyToken');
   t.ok(ApolloClientDefaultOptionsToken, 'exports ApolloClientAuthKeyToken');
+  t.ok(ApolloClientResolversToken, 'exports ApolloClientResolversToken');
 });

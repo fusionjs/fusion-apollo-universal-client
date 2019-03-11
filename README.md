@@ -23,6 +23,7 @@ The Apollo Client is the entrypoint for most Apollo applications. This plugin pr
     - [`GetApolloClientCacheToken`](#GetApolloClientCacheToken)
     - [`ApolloClientCredentialsToken`](#apolloclientcredentialstoken)
     - [`GetApolloClientLinksToken`](#getapolloclientlinkstoken)
+    - [`ApolloClientResolversToken`](#apolloclientresolverstoken)
 - [Examples](#examples)
 
 ---
@@ -183,5 +184,17 @@ import {GetApolloClientLinksToken} from 'fusion-apollo-universal-client';
 ###### Type
 
 - `(Array<ApolloLinkType>) => Array<ApolloLinkType>` - Optional.
+
+##### `ApolloClientResolversToken`
+
+```js
+import { ApolloClientResolversToken } from "fusion-apollo-universal-client";
+```
+
+(Optional) Provides the resolvers for [local state management](https://www.apollographql.com/docs/react/essentials/local-state.html).
+
+###### Type
+
+- `ResolverMap | $ReadOnlyArray<ResolverMap>` - Optional.
 
 ---
