@@ -9,15 +9,11 @@
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator, test} from 'fusion-test-utils';
-import {ApolloClientToken} from 'fusion-apollo';
+import {ApolloClientToken} from 'fusion-plugin-apollo';
 import {ApolloLink} from 'apollo-link';
 import {FetchToken} from 'fusion-tokens';
-import unfetch from 'unfetch';
 
-import ApolloClientPlugin, {
-  ApolloClientEndpointToken,
-  GetApolloClientLinksToken,
-} from '../index.js';
+import ApolloClientPlugin, {GetApolloClientLinksToken} from '../index.js';
 
 test('ApolloUniveralClient', async t => {
   const app = new App('el', el => el);
@@ -25,9 +21,8 @@ test('ApolloUniveralClient', async t => {
     new ApolloLink(),
     ...links,
   ]);
-  app.register(ApolloClientEndpointToken, '/graphql');
   app.register(ApolloClientToken, ApolloClientPlugin);
-  app.register(FetchToken, unfetch);
+  app.register(FetchToken, require('unfetch'));
 
   const clients = [];
   const testPlugin = createPlugin({
@@ -36,10 +31,8 @@ test('ApolloUniveralClient', async t => {
     },
     middleware({universalClient}) {
       return async (ctx, next) => {
-        // $FlowFixMe
         const client = universalClient(ctx, {});
         clients.push(client);
-        // $FlowFixMe
         t.ok(client.link);
         t.ok(client.cache instanceof InMemoryCache);
         // memoizes the client on ctx correctly

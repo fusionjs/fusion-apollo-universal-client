@@ -16,14 +16,13 @@ The Apollo Client is the entrypoint for most Apollo applications. This plugin pr
   - [Authorization](#authorization)
 - [API](#api)
   - [Registration API](#registration-api)
-    - [`ApolloClientEndpointToken`](#apolloclientendpointtoken)
-  - [Dependencies](#dependencies)
-    - [`FetchToken`](#fetchtoken)
     - [`ApolloClientAuthKeyToken`](#apolloclientauthkeytoken)
     - [`GetApolloClientCacheToken`](#GetApolloClientCacheToken)
     - [`ApolloClientCredentialsToken`](#apolloclientcredentialstoken)
     - [`GetApolloClientLinksToken`](#getapolloclientlinkstoken)
     - [`ApolloClientResolversToken`](#apolloclientresolverstoken)
+  - [Dependencies](#dependencies)
+    - [`FetchToken`](#fetchtoken)
 - [Examples](#examples)
 
 ---
@@ -41,16 +40,13 @@ yarn add fusion-apollo-universal-client
 ### Usage with fusion-apollo
 
 ```js
-import App, {ApolloClientToken} from 'fusion-apollo';
-import GetApolloClient, {
-  ApolloClientEndpointToken,
-} from 'fusion-apollo-universal-client';
+import App, {ApolloClientToken} from 'fusion-plugin-apollo';
+import GetApolloClient from 'fusion-apollo-universal-client';
 import unfetch from 'unfetch';
 
 export default () => {
   const app = new App(root);
   app.register(ApolloClientToken, GetApolloClient);
-  app.register(ApolloClientEndpointToken, '...');
   __NODE__ && app.register(FetchToken, unfetch);
   return app;
 };
@@ -62,15 +58,14 @@ If your app hosts the Apollo server a schema must be provided.
 The schema can be provided using the `GraphQLSchemaToken` from `fusion-apollo`.
 
 ```js
-import App, {ApolloClientToken, GraphQLSchemaToken} from 'fusion-apollo';
+import App, {ApolloClientToken, GraphQLSchemaToken} from 'fusion-plugin-apollo';
 import {makeExecutableSchema} from 'graphql-tools';
-import GetApolloClient, {ApolloClientEndpointToken} from 'fusion-apollo-universal-client';
+import GetApolloClient from 'fusion-apollo-universal-client';
 import unfetch from 'unfetch';
 
 export default () => {
   const app = new App(root);
   app.register(ApolloClientToken, GetApolloClient);
-  app.register(ApolloClientEndpointToken, '...');
   app.register(GraphQLSchemaToken, makeExecutableSchema(...));
   __NODE__ && app.register(FetchToken, unfetch);
   return app;
@@ -88,42 +83,6 @@ Authorization will work with hosted GraphQL services such as scaphold and graph.
 ### API
 
 #### Registration API
-
-##### ApolloClientEndpointToken
-
-```js
-import {ApolloClientEndpointToken} from 'fusion-apollo';
-```
-
-A token with the GraphQL endpoint which the Apollo HttpLink client communicates with. This can be an absolute path to a local GraphQL server, or a remote hosted GraphQL server.
-
-###### Type
-
-- `string` - Required. The URI to make GraphQL requests from.
-
-#### Dependencies
-
-##### `FetchToken`
-
-```js
-import {FetchToken} from 'fusion-tokens';
-```
-
-A [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) implementation. Browser-only.
-
-###### Type
-
-```js
-type Fetch = (url: string, options: Object) => Promise<Response>;
-```
-
-- `url: string` - Required. Path or URL to the resource you wish to fetch.
-- `options: Object` - Optional. You may optionally pass an `init` options object as the second argument. See [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) for more details.
-- `[return]: Promise<Request>` - Return value from fetch. See [Response](A function that loads appropriate translations and locale information given an HTTP request context) for more details.
-
-###### Default value
-
-If no fetch implementation is provided, [`window.fetch`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) is used.
 
 ##### `ApolloClientAuthKeyToken`
 
@@ -198,3 +157,27 @@ import { ApolloClientResolversToken } from "fusion-apollo-universal-client";
 - `ResolverMap | $ReadOnlyArray<ResolverMap>` - Optional.
 
 ---
+
+#### Dependencies
+
+##### `FetchToken`
+
+```js
+import {FetchToken} from 'fusion-tokens';
+```
+
+A [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) implementation. Browser-only.
+
+###### Type
+
+```js
+type Fetch = (url: string, options: Object) => Promise<Response>;
+```
+
+- `url: string` - Required. Path or URL to the resource you wish to fetch.
+- `options: Object` - Optional. You may optionally pass an `init` options object as the second argument. See [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) for more details.
+- `[return]: Promise<Request>` - Return value from fetch. See [Response](A function that loads appropriate translations and locale information given an HTTP request context) for more details.
+
+###### Default value
+
+If no fetch implementation is provided, [`window.fetch`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) is used.
