@@ -1,6 +1,6 @@
 {
   "name": "fusion-apollo-universal-client",
-  "version": "2.2.0",
+  "version": "3.0.0-0",
   "main": "./dist/index.js",
   "license": "MIT",
   "repository": "fusionjs/fusion-apollo-universal-client",
