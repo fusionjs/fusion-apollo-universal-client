@@ -1,14 +1,17 @@
 // @flow
 import Router from 'fusion-plugin-react-router';
-import App, {ApolloClientToken, GraphQLSchemaToken} from 'fusion-apollo';
-import ApolloServer, {
-  ApolloServerEndpointToken,
-} from 'fusion-plugin-apollo-server';
+import {RenderToken} from 'fusion-core';
+import App from 'fusion-react';
+import ApolloPlugin, {
+  ApolloClientToken,
+  GraphQLSchemaToken,
+  GraphQLEndpointToken,
+} from 'fusion-plugin-apollo';
 import {FetchToken} from 'fusion-tokens';
 import unfetch from 'unfetch';
 import {addMockFunctionsToSchema, makeExecutableSchema} from 'graphql-tools';
 
-import ApolloClientPlugin, {ApolloClientEndpointToken} from '../../src/index';
+import ApolloClientPlugin from '../../src/index';
 
 import root from './root.js';
 
@@ -38,9 +41,8 @@ export default () => {
 
   // Integration tests ensures that we are able to hydrate without hitting this endpoint.
   // Don't update without updating tests as well.
-  app.register(ApolloClientEndpointToken, '/graphql');
-  __NODE__ && app.register(ApolloServerEndpointToken, '/graphql');
-  __NODE__ && app.register(ApolloServer);
+  app.register(GraphQLEndpointToken, '/graphql');
+  __NODE__ && app.register(RenderToken, ApolloPlugin);
   __NODE__ && app.register(GraphQLSchemaToken, schema);
 
   return app;

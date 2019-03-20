@@ -6,7 +6,7 @@
  * @flow
  */
 
-import {ApolloClientToken, GraphQLSchemaToken} from 'fusion-apollo';
+import {ApolloClientToken, GraphQLSchemaToken} from 'fusion-plugin-apollo';
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator, test} from 'fusion-test-utils';
 import {FetchToken} from 'fusion-tokens';

@@ -8,7 +8,11 @@
 
 import {createPlugin, createToken} from 'fusion-core';
 import {FetchToken} from 'fusion-tokens';
-import {GraphQLSchemaToken, ApolloContextToken} from 'fusion-apollo';
+import {
+  GraphQLSchemaToken,
+  ApolloContextToken,
+  GraphQLEndpointToken,
+} from 'fusion-plugin-apollo';
 import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {ApolloLink, from as apolloLinkFrom} from 'apollo-link';
@@ -29,10 +33,6 @@ export const GetApolloClientCacheToken: Token<
 
 export const ApolloClientCredentialsToken: Token<string> = createToken(
   'ApolloClientCredentialsToken'
-);
-
-export const ApolloClientEndpointToken: Token<string> = createToken(
-  'ApolloClientEndpointToken'
 );
 
 export const ApolloClientDefaultOptionsToken: Token<
@@ -66,7 +66,7 @@ type ResolverMapType = {
 
 type ApolloClientDepsType = {
   getCache: typeof GetApolloClientCacheToken.optional,
-  endpoint: typeof ApolloClientEndpointToken.optional,
+  endpoint: typeof GraphQLEndpointToken.optional,
   fetch: typeof FetchToken,
   includeCredentials: typeof ApolloClientCredentialsToken.optional,
   authKey: typeof ApolloClientAuthKeyToken.optional,
@@ -90,7 +90,7 @@ const ApolloClientPlugin: FusionPlugin<
 > = createPlugin({
   deps: {
     getCache: GetApolloClientCacheToken.optional,
-    endpoint: ApolloClientEndpointToken.optional,
+    endpoint: GraphQLEndpointToken.optional,
     fetch: FetchToken,
     includeCredentials: ApolloClientCredentialsToken.optional,
     authKey: ApolloClientAuthKeyToken.optional,
@@ -128,8 +128,7 @@ const ApolloClientPlugin: FusionPlugin<
               schema,
               context:
                 typeof apolloContext === 'function'
-                  ? // $FlowFixMe
-                    apolloContext(ctx)
+                  ? apolloContext(ctx)
                   : apolloContext,
             })
           : new HttpLink({
