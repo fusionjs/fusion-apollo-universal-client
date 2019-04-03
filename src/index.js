@@ -119,7 +119,7 @@ const ApolloClientPlugin: FusionPlugin<
       };
 
       const getServerProps = () => {
-        return ctx && ctx.cookies.get(authKey);
+        return ctx && (ctx.cookies.get(authKey) || ctx.query[authKey]);
       };
 
       const connectionLink =
